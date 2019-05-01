@@ -1,0 +1,18 @@
+C:\Users\AnubitFire\Desktop\RPG Stuff\StarFinderCharactorGenerator_V2.2\SFLib\bin\Debug\SFLib.dll
+C:\Users\AnubitFire\Desktop\RPG Stuff\StarFinderCharactorGenerator_V2.2\SFLib\bin\Debug\SFLib.pdb
+C:\Users\AnubitFire\Desktop\RPG Stuff\StarFinderCharactorGenerator_V2.2\SFLib\obj\Debug\SFLib.csprojResolveAssemblyReference.cache
+C:\Users\AnubitFire\Desktop\RPG Stuff\StarFinderCharactorGenerator_V2.2\SFLib\obj\Debug\SFLib.dll
+C:\Users\AnubitFire\Desktop\RPG Stuff\StarFinderCharactorGenerator_V2.2\SFLib\obj\Debug\SFLib.pdb
+C:\Users\AnubitFire\OneDrive - College of Western Idaho\SFLib\bin\Debug\SFLib.XML
+C:\Users\AnubitFire\OneDrive - College of Western Idaho\SFLib\bin\Debug\SFLib.dll
+C:\Users\AnubitFire\OneDrive - College of Western Idaho\SFLib\bin\Debug\SFLib.pdb
+C:\Users\AnubitFire\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.dll
+C:\Users\AnubitFire\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.pdb
+C:\Users\AnubitFire\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.csprojResolveAssemblyReference.cache
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\bin\Debug\SFLib.XML
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\bin\Debug\SFLib.dll
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\bin\Debug\SFLib.pdb
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.csprojAssemblyReference.cache
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.csproj.CoreCompileInputs.cache
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.dll
+C:\Users\jmarsh\OneDrive - College of Western Idaho\SFLib\obj\Debug\SFLib.pdb
