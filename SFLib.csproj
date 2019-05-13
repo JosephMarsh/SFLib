@@ -52,8 +52,9 @@
     <Compile Include="PlayerCharacter.cs" />
     <Compile Include="PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Race.cs" />
+    <Compile Include="Races.cs" />
     <Compile Include="RandomNumber.cs" />
+    <Compile Include="Skill.cs" />
     <Compile Include="SolarianClass.cs" />
     <Compile Include="SoldierClass.cs" />
     <Compile Include="TechnomancerClass.cs" />

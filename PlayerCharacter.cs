@@ -10,37 +10,55 @@ namespace SFLib
     /// This class stores charactor data for
     /// This is where finalized data should be stored.
     /// </summary>
-    public class PlayerCharacter
+    public class PlayerCharacter : Races
     {
-        
 
         //unique data
         /// <summary>Charactor's Name</summary>
-        public string CharacterName { set; get; }
+        public string CharacterName { set; get; } = "New Character";
         /// <summary>Player's Name</summary>
-        public string PlayerName { set; get; }
+        public string PlayerName { set; get; } = "Your Name";
         /// <summary>Player's Short Concept Description</summary>
-        public string Concept { set; get; }
+        public string Concept { set; get; } = "Who Is this person?";
+        /// <summary>Player's Notes entered on Step 1</summary>
+        public string Step1Notes { set; get; } = "Use this area to save notes about your Character";
+        /// <summary>Player's Notes entered on Step 2/summary>
+        public string Step2Notes { set; get; } = "";
         /// <summary>Player's longform notes and ideas(will dispaly on seperate page of final sheet)</summary>
-        public string NotesAndIdeas { set; get; }
+        public string NotesAndIdeas {
+            get
+            {
+                string _step1Notes;
+                if (Step1Notes == "Use this area to save notes about your Character")
+                {
+                    _step1Notes = "";
+                }
+                else
+                {
+                    _step1Notes = Step1Notes;
+                }
+                string notes ="Step 1 Notes:" + cr() + _step1Notes + cr() + "Step 2 Notes:" + cr() + Step2Notes;
+                return notes;
+            }
+        }
         private int playerLevel;//Property (Level) returns sum of classes 1 and 2
         private int playerBAB;
         private bool heavyArmor = false;//default is false
-
-        public string Deity { set; get; }
+        /// <summary>Player's Diety or could also be self if you're just that awesome</summary>
+        public string Deity { set; get; } = "The number 42";
 
         //Weapon stuff 
         private bool[] weaponProficiency = new bool[7];//basic melee[0], advanced melee[1], small arms[2], long arms[3], sniper[4], heavy[5], granades[6]
         private string[] proficiencies = { "Basic Melee Weapons", "Advanced Melee Weapons", "Small Arms", "Longarms", "Sniper Weapons", "heavy Weapons", "granades" };
 
         //ability score stuff
-        private int[] abilityScores = { 10, 10, 10, 10, 10, 10 }; //parrallel with AttributeNames, ability Mods and AbilityBrief Base stats at toon creation.
-        private int[] abilityMods = { 0, 0, 0, 0, 0, 0 };//staring value after stat roll but before any adjustments or corrections.
+        private int[] _baseAbilityScores = { 10, 10, 10, 10, 10, 10 }; //parrallel with AttributeNames, ability Mods and AbilityBrief Base stats at toon creation.
+        private int[] _baseAbilityMods = { 0, 0, 0, 0, 0, 0 };//staring value after stat roll but before any adjustments or corrections.
         /// <summary>String Array of Ability names full [0-5] in alphabetical order Parallel with Ability Score Arrays</summary>
         public readonly string[] AbilityNames = { "Charsima", "Constitution", "Dexterity", "Intelligence", "Strength", "Wisdom" };
         /// <summary>String Array of Ability names full [0-5]in alphabetical order Parallel with Ability Score Arrays</summary>
         public readonly string[] AbilityNamesBrief = { "Cha", "Con", "Dex", "Int", "Str", "Wis" }; //6, 3, 4, 2, 1, 5 as they appear on the official Characer sheet
-        private int[] abilityScoresFinal = { 0, 0, 0, 0, 0, 0 };//as ability scores will apear on the final toon
+        private int[] abilityScoresFinal = { 10, 10, 10, 10, 10, 10 };//as ability scores will apear on the final toon
         /// <summary>Read only. Base experience amounts per level[0-20] use unadjusted character level</summary>
         public readonly int[] curentXP = { 0, 0, 1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000, 145000, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000 };
         /// <summary>Read only. Experience amounts needed for next level[0-20] use unadjusted current character level Parallel with curentXP</summary>
@@ -49,21 +67,18 @@ namespace SFLib
         public readonly int[] featsPerLevel = { 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10 };
 
         //Race stuff goes here
+        /// <summary>Holds the index value for the character's race.</summary>
+        public int CharacterRaceId { set; get; } = -1; //0-7.
+        private string _raceName;
+        
 
-        public readonly string[] RaceNames = { "Android", "Human", "Kasatha", "Lashunta[Damaya]",
-            "Lashunta[Korasha]", "Shirren", "Vesk", "Yoski", "other" };
-        /// <summary>Store Race Ability Score Adjustments [0-5] in Alphbetical order, Parrallel with Ability scores</summary>
-        public int[] RaceAbilityMods = { 0, 0, 0, 0, 0, 0 };
-        public int PlayerRaceId { set; get; } //0-7.
-        public string OtherRaceName { set; get; }
         public int RaceHPMod { set; get; }
-        public int[] RacialskillMod = new int[22];
-        public int RacialACBonus = 0;
-
+        
         //Theme stuff 
-        public int[] themeMods = { 0, 0, 0, 0, 0, 0 };
+        public int[] themeAblityScoreAdjustment = { 0, 0, 0, 0, 0, 0 };
         public bool[] isThemeClassSkill = new bool[22];//stored sepeatly from Class class skills for latter comparison.
-        public int PlayerThemeId { set; get; }//0-9 with 9 beeing themeless
+        /// <summary>This stores the Character's ThemeId wich is used in the Theme class</summary>
+        public int PlayerThemeId { set; get; }
         public string[] themeBenifits = new string[4];//strores an array of beifits based on the level of the character. 
 
         //class stuff
@@ -112,13 +127,33 @@ namespace SFLib
         public int UnspentFeats { get; set; }
         public int UnspentComatFeats { get; set; }
 
+        /// <summary>Stores Players Selected Race name.</summary>
+        public string RaceName
+        {
+            get
+            {
+                //check to see if user has selected a race yet
+                if (CharacterRaceId == -1)
+                {
+                    return "None Selceted";
+                }
+                else
+                {
+                    return _raceName;
+                }
+            }
+            set
+            {
+                _raceName = value;
+            }
+        }
 
-
+        /// <summary>Returns pre-calculated array of spells per level based on Wisdom Score</summary>
         public int[] MysticBonusSpells
         {
             get
             {
-                mysticBonusSpells = calcualteBonusSpells(abilityScores[5]);
+                mysticBonusSpells = calcualteBonusSpells(_baseAbilityScores[5]);
                 return mysticBonusSpells;
             }
         }
@@ -126,7 +161,7 @@ namespace SFLib
         {
             get
             {
-                technoBonusSpells = calcualteBonusSpells(abilityScores[3]);
+                technoBonusSpells = calcualteBonusSpells(_baseAbilityScores[3]);
                 return technoBonusSpells;
             }
         }
@@ -278,7 +313,7 @@ namespace SFLib
         {
             get
             {
-                return (Class2Level * (class2SkillsperLevel + abilityMods[3])) + (Class1Level * (class1SkillsperLevel + abilityMods[3]));
+                return (Class2Level * (class2SkillsperLevel + _baseAbilityMods[3])) + (Class1Level * (class1SkillsperLevel + _baseAbilityMods[3]));
             }
         }
 
@@ -287,9 +322,11 @@ namespace SFLib
         {
             set
             {
+                //Check each value to see if it's true
                 for (int i = 0; i < isClassSkill.Length; i++)
                 {
-                    if (!isClassSkill[i]) //should only change if the value is false.
+                    //if the current value is false set it to the new value
+                    if (!isClassSkill[i])
                     {
                         isClassSkill[i] = value[i];
                     }
@@ -333,14 +370,14 @@ namespace SFLib
             }
         }//end PlayerBAB
 
-        /// <summary>Ability Scores After Adjustments from Theme and Race </summary>
+        /// <summary>Ability Scores After all Bonuses</summary>
         public int[] AbilityScores
         {
             get
             {
                 for (int i = 0; i < abilityScoresFinal.Length; i++)
                 {
-                    abilityScores[i] = (themeMods[i] + RaceAbilityMods[i]);
+                    abilityScoresFinal[i]= _baseAbilityScores[i] + (themeAblityScoreAdjustment[i] + RacialAbilityScoreAdjustment[i]);
                 }
                 return abilityScoresFinal;
             }
@@ -350,13 +387,13 @@ namespace SFLib
         {
             get
             {
-                if ((Class1Level * (Class1ConMod + abilityMods[1])) + (Class2Level * (Class2ConMod + abilityMods[1])) < 0)
+                if ((Class1Level * (Class1ConMod + _baseAbilityMods[1])) + (Class2Level * (Class2ConMod + _baseAbilityMods[1])) < 0)
                 {
                     return 0;
                 }
                 else
                 {
-                    return (Class1Level * (Class1ConMod + abilityMods[1])) + (Class2Level * (Class2ConMod + abilityMods[1]));
+                    return (Class1Level * (Class1ConMod + _baseAbilityMods[1])) + (Class2Level * (Class2ConMod + _baseAbilityMods[1]));
                 }
             }
         }//end StaminaPoints
@@ -407,29 +444,34 @@ namespace SFLib
 
 
         /// <summary>Ability Mods from Base Character Attributes</summary>
-        public int[] AbilityMods
+        public int[] BaseAbilityMods
         {
             get
             {
-                return abilityMods;
+                return _baseAbilityMods;
             }
             set
             {
-                abilityMods = value;
+                _baseAbilityMods = value;
             }
         }
 
         /// <summary>Base scores without Theme mods or race mods</summary>
-        public int[] AbilityScoresRaw
+        public int[] BaseAbilityScores
         {
             set
             {
-                abilityScores = value;
+                _baseAbilityScores = value;
             }
             get
             {
-                return abilityScores;
+                return _baseAbilityScores;
             }
+        }
+        //For Rich text formats where \r does't work.
+        private static string cr()
+        {
+            return Environment.NewLine;
         }
     }//end PlayerCharacter class
 }//end namespace

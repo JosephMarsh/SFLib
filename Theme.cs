@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace SFLib
 {
+    /// <summary>
+    /// This class stores data about Starfinder Themes.
+    /// </summary>
     public class Theme
     {
-        private string[][] benifits = new string[10][];
+        private string[][] _benifits = new string[10][];
+        private string[] _sources;
         public int[][] themes = new int[10][];
         //ability buffs based on selected theme   {cha,con,dex,int,str,wis}
         public readonly int[] acePilotTheme = { 0, 0, 1, 0, 0, 0 };
@@ -41,39 +45,21 @@ namespace SFLib
         {
             get
             {
-                benifits[0] = aceBenefits;
-                benifits[1] = bountyHunterBenefits;
-                benifits[2] = iconBenefits;
-                benifits[3] = MercBenefits;
-                benifits[4] = outlawBenefits;
-                benifits[5] = PriestBenefits;
-                benifits[6] = scolarBenefits;
-                benifits[7] = SpacerBenefits;
-                benifits[8] = xenoBenefits;
-                benifits[9] = themlessBenefits;
-                return benifits;
+                _benifits[0] = aceBenefits;
+                _benifits[1] = bountyHunterBenefits;
+                _benifits[2] = iconBenefits;
+                _benifits[3] = MercBenefits;
+                _benifits[4] = outlawBenefits;
+                _benifits[5] = PriestBenefits;
+                _benifits[6] = scolarBenefits;
+                _benifits[7] = SpacerBenefits;
+                _benifits[8] = xenoBenefits;
+                _benifits[9] = themlessBenefits;
+                return _benifits;
             }
         }//ThemeBenefits
 
-        public int[][] GetThemes
-        {
-            get
-            {
-                themes[0] = acePilotTheme;
-                themes[1] = bountyHunterTheme;
-                themes[2] = iconTheme;
-                themes[3] = mercenaryTheme;
-                themes[4] = outLawTheme;
-                themes[5] = priestTheme;
-                themes[6] = scholarTheme;
-                themes[7] = spacefarerTheme;
-                themes[8] = xenoSeekerTheme;
-                themes[9] = themeless;
-                return themes;
-            }//end get
-        }// end get Themes;
-
-        public int[] theme(int themeId)
+        public int[] ThemeAbilityScoresMod(int themeId)
         {
             themes[0] = acePilotTheme;
             themes[1] = bountyHunterTheme;
@@ -86,6 +72,19 @@ namespace SFLib
             themes[8] = xenoSeekerTheme;
             themes[9] = themeless;
             return themes[themeId];
+        }
+        /// <summary>
+        /// an array of theme sources ordered by theme ID
+        /// </summary>
+        /// <param name="themeId">Theme ID</param>
+        /// <returns>A string contianing The source of the theme</returns>
+        public string[] Sources(int themeId)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                _sources[i] = "Core Rule Book";
+            }
+            return _sources;
         }
 
         public Theme()

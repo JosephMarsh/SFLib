@@ -37,12 +37,14 @@ namespace SFLib
         /// <summary>Stat Generation Method, Description</summary>
         public readonly string rollModepointBuy = "No dice to roll on this option.  Just select the stats you want using the up and down buttons in number boxes or type them in."+ cr() +"All the math is done for you but incase you want to know, the costs are as follows:\rScore:\tPoints:\r7\t-4\r8\t-2\r9\t-1\r10\t0\r11\t1\r12\t2\r13\t3\r14\t5\r15\t7\r16\t10\r17\t13\r18\t17";
         /// <summary>Stat Generation Method, Description</summary>
-        public readonly string rollModeGod = "This is pretty much Point Buy mode but without limits.Just select the stats you want using the up and down buttons in number boxes or type them in. \r\rWarning: The Point Buy Scale doesn't go above 18 or below 7, so it will not show an accurate cost for your scores beyond that threshold... Like you care... Cheater!";
+        public readonly string rollModeGod = "This is pretty much Point Buy mode but without limits. Just select the stats you want using the up and down buttons in number boxes or type them in. \r\rWarning: The Point Buy Scale doesn't go above 18 or below 7, so it will not show an accurate cost for your scores beyond that threshold... Like you care... Cheater! \rMust be in Point-Buy mode to take advatage of this setting.";
         /// <summary>Stat Generation Method, Description</summary>
         public readonly string rollModeCore = "This is how Starfinder is meant to be played. All Ability Scores will be set to 10 for now.  Later, in step 5, you’ll have the option to do a modified version of a point buy where you get 10 points to spend on a one-for-one basis.  You’ll also get your theme and race modifiers in steps two and three to add to these. Or you can skip step 5 by choosing one of the other options. Paizo warns that these options may make the game unbalanced but does mention that if you want to get around this unbalancing, don’t let your stats go over 18 even after theme and race mods are applied.";
 
         /// <summary>Instruction Set</summary>
         public readonly string step1 = "Chose a concept for your character. Get an idea for their personality.  Start thinking about their past and where their choices have led them.  What major struggles have they had to overcome and what skills have they developed to, or from, overcoming them?  Do they have a job or profession?  What languages do they speak? What race are they?  Note that you will choose their Languages and Racial Architype in the later steps but their race will inform their past, present and future, so it can’t be overlooked yet.";
+        /// <summary>Instruction Set</summary>
+        public readonly string step2 = "In this step, you choose your Race. Select from the list in the dropdown from the available races, or chose the custom race for anything that doesn’t fit a pre-built race. Your ability scores will be adjusted according to your race and you may get the option to choose from a selection of Racial skills.";
         /// <summary>Instruction Set</summary>
         public readonly string afterCommitPressed = "Your starting stats have been chosen, begin step 1 or write down your stats and have a nice day!.";
         /// <summary>Instruction Set</summary>
@@ -93,13 +95,13 @@ namespace SFLib
         /// <summary>Class Discription</summary>
         public readonly string envoyDiscription = "Envoy Class" + cr() + "Envoys are charismatic and inspirational. They are a good Support classe and have many useful skills and abilites toward that end." + cr() + cr() + "Primary Stat" + cr() + "Charisma" + cr() + cr() + "Secondary" + cr() + "Intelligence: for extra skill points" + cr() + "Dexterity: for ranged combat" + cr() + cr() + "Stamina Points / HP" + cr() + "6 + Constitution Modifier / 6 HP" + cr() + cr() + "Skill Ranks per Level" + cr() + "8 plus Intelligence Modifier" + cr() + cr() + "Class Skills:";
         /// <summary>Class Discription</summary>
-        public readonly string mechDiscription = "";
+        public readonly string mechDiscription = "Mechanic Class" + cr() + "Mechanics are Ingenious and Crafty. They are good hackers, engineers and ship roboticists" + cr() + cr() + "Primary Stat" + cr() + "Intelligence" + cr() + cr() + "Secondary" + cr() + "Dexterity: For better ranged attacks" + cr() + cr() + "Stamina Points / HP" + cr() + "6 + Constitution Modifier / 6 HP" + cr() + cr() + "Skill Ranks per Level" + cr() + "4 plus Intelligence Modifier" + cr() + cr() + "Class Skills:";
         /// <summary>Class Discription</summary>
-        public readonly string mysticDiscription = "";
+        public readonly string mysticDiscription = "Mystic Class" + cr() + "Mystics are wielders of unseen powers.  They are capable of casting spells and investigating the mysteries of the universe, both arcane and mundane." + cr() + cr() + "Primary Stat" + cr() + "Wisdom" + cr() + cr() + "Secondary" + cr() + "Charisma: For better social interations" + cr() + cr() + "Stamina Points / HP" + cr() + "6 + Constitution Modifier / 6 HP" + cr() + cr() + "Skill Ranks per Level" + cr() + "6 plus Intelligence Modifier" + cr() + cr() + "Class Skills:";
         /// <summary>Class Discription</summary>
-        public readonly string operativeDiscription = "";
+        public readonly string operativeDiscription = "Operative Class" + cr() + "Operatives are elite warriors and spies. What Solders do with bruit force and intimidation, operatives do with fineness and guile. " + cr() + cr() + "Primary Stat" + cr() + "Dexterity" + cr() + cr() + "Secondary" + cr() + "Intelligence: For more skill ponts" + cr() + cr() + "Stamina Points / HP" + cr() + "6 + Constitution Modifier / 6 HP" + cr() + cr() + "Skill Ranks per Level" + cr() + "8 plus Intelligence Modifier" + cr() + cr() + "Class Skills:";
         /// <summary>Class Discription</summary>
-        public readonly string solarianDiscription = "";
+        public readonly string solarianDiscription = "Solrian Class" + cr() + "Solarians are matial warriors and wielders of the scorching fire of the sun and the crushing forces of gravity." + cr() + cr() + "Primary Stat" + cr() + "Charisma" + cr() + cr() + "Secondary" + cr() + "Strength: For more effective attacks" + cr() + cr() + "Stamina Points / HP" + cr() + "7 + Constitution Modifier / 7 HP" + cr() + cr() + "Skill Ranks per Level" + cr() + "4 plus Intelligence Modifier" + cr() + cr() + "Class Skills:";
         /// <summary>Class Discription</summary>
         public readonly string soldierDiscription = "";
         /// <summary>Class Discription</summary>
@@ -122,13 +124,10 @@ namespace SFLib
                 return classDiscriptions;
             }
         }
-
-
-
-
+        //For Rich text formats where \r does't work.
         private static string cr()
         {
-            return System.Environment.NewLine;
+            return Environment.NewLine;
         }
     }
 }
