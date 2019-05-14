@@ -11,13 +11,15 @@ namespace SFLib
     /// </summary>
     public class Races
     {
-        /// <summary>Stores character's Racial AC bonus</summary>
-        protected int RacialACBonus { get; set; }
+        
         //update this number after adding a new chareacter class
         private static int _numberOfIncludedRaces = 9;
+        private int[][] _races = new int[_numberOfIncludedRaces][];
+
         /// <summary>Returns a read only int array of Hit Point modifers in alphabetical order</summary>
         protected int[] RacialskillMod = new int[22];
-        private int[][] _races = new int[_numberOfIncludedRaces][];
+        /// <summary>Stores character's Racial AC bonus</summary>
+        protected int RacialACBonus { get; set; }
         /// <summary>Returns a read only int array of Hit Point modifers in alphabetical order</summary>
         public readonly int[] raceHPMod = { 4, 4, 4, 4, 4, 6, 6, 2, 4 };
         /// <summary>Returns a read only int array of Ability Score modifers in alphabetical order</summary>
@@ -38,10 +40,11 @@ namespace SFLib
         public readonly int[] YoskiMods = { 0, 0, 2, 2, -2, 0 };
         /// <summary>Returns a read only int array of Ability Score modifers in alphabetical order</summary>
         public readonly int[] otherRaceMods = { 0, 0, 0, 0, 0, 0 };
-        /// <summary>Returns a read onlystring array of race names/summary>
+        /// <summary>Returns a read onlystring array of race names</summary>
         public readonly string[] raceNames = { "Android", "Human", "Kasatha", "Lashunta[Damaya]",
             "Lashunta[Korasha]", "Shirren", "Vesk", "Yoski", "other" };
-        private int[] _raceSkills = new int[_numberOfIncludedRaces];
+
+        
         /// <summary>Store Race Ability Score Adjustments [0-5] in Alphbetical order, Parrallel with Ability scores</summary>
         protected int[] _racialAbilityScoreAdjustment = { 0, 0, 0, 0, 0, 0 };
 
@@ -58,14 +61,13 @@ namespace SFLib
             }
         }
 
-
         /// <summary>
-        /// Returns an array if ints, each corresponding to a skill ID that gains a racial bonus
+        /// Returns an array if ints, each corresponding to skill IDs that gain racial bonuses
         /// Returns -1 if there is no skill bonus and 99 to pick any.
         /// </summary>
         /// <param name="raceID">Race ID corrisponding to Races in alphbetical order</param>
         /// <returns>int array or null</returns>
-        public int[] RacialBonusSkills(int raceID = 99)
+        public int[] RacialBonusSkills(int raceID)
         {
             int[] bonusSkills;
             switch (raceID)
@@ -123,8 +125,6 @@ namespace SFLib
             return bonusSkills;
         }
 
-
-
         /// <summary>Returns a read only String of a race name.</summary>
         public string getRaceName(int raceID)
         {
@@ -166,8 +166,6 @@ namespace SFLib
             _races[7] = YoskiMods;
             _races[8] = otherRaceMods;
             return _races[classId];
-        }
-
-        
+        }    
     }//end class
 }//end namespace
