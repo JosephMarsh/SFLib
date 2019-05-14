@@ -203,6 +203,9 @@
             produces a read only array of Class Names
             </summary>
         </member>
+        <member name="P:SFLib.Information.RaceDiscriptions">
+            <summary>Retruns a read only array of Race Descriptions</summary>
+        </member>
         <member name="F:SFLib.MysticClass.ClassID">
             <summary>
             This class stores data for the Mystic class and modifies the

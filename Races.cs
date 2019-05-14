@@ -82,7 +82,7 @@ namespace SFLib
                     break;
                 case 2:
                     //Kasatha
-                    bonusSkills = new int[] { 0, 5, 1};
+                    bonusSkills = new int[] { 0, 4, 1};
                     //{Acrobatics, Culture, Athletics}
                     break;
                 case 3:
@@ -97,7 +97,7 @@ namespace SFLib
                     break;
                 case 5:
                     //Shirren
-                    bonusSkills = new int[] { 5, -1, 6 };
+                    bonusSkills = new int[] { 4, -1, 5 };
                     //{ Culture, none, Diplomacy}
                     break;
                 case 6:
@@ -107,7 +107,7 @@ namespace SFLib
                     break;
                 case 7:
                     //Yoski
-                    bonusSkills = new int[] { 8, 20, 19 };
+                    bonusSkills = new int[] { 7, 18, 19 };
                     //{Engineering, Survival, Stealth}
                     break;
                 case 8:

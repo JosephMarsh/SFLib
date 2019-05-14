@@ -46,6 +46,8 @@ namespace SFLib
         /// <summary>Instruction Set</summary>
         public readonly string step2 = "In this step, you choose your Race. Select from the list in the dropdown from the available races, or chose the custom race for anything that doesn’t fit a pre-built race. Your ability scores will be adjusted according to your race and you may get the option to choose from a selection of Racial skills.";
         /// <summary>Instruction Set</summary>
+        public readonly string step2GodMode = "This setting allows you to change the ability scores any way you want.  Use this mode if the default Race types don’t fit your custom built.  You can add templates later as well so don’t add those here.";
+        /// <summary>Instruction Set</summary>
         public readonly string afterCommitPressed = "Your starting stats have been chosen, begin step 1 or write down your stats and have a nice day!.";
         /// <summary>Instruction Set</summary>
         public readonly string afterCommitPressedCore = "Your stats have been set to 10 for now. In Step 5, after you have modified them with your Race and Theme selections, you will have a chance to alter them.";
@@ -119,11 +121,40 @@ namespace SFLib
         {
             get
             {
-                classDiscriptions = new string[] { envoyDiscription,mechDiscription, mysticDiscription,
-                    operativeDiscription,solarianDiscription,soldierDiscription,techDiscription };
+                classDiscriptions = new string[] 
+                {
+                    envoyDiscription,
+                    mechDiscription,
+                    mysticDiscription,
+                    operativeDiscription,
+                    solarianDiscription,
+                    soldierDiscription,
+                    techDiscription
+                };
                 return classDiscriptions;
             }
         }
+
+        /// <summary>Retruns a read only array of Race Descriptions</summary>
+        public string[] RaceDiscriptions
+        {
+            get
+            {
+                return new string[]
+                {
+                    androidDiscription,
+                    humanDiscription,
+                    kasathasDiscription,
+                    lashuntasDiscription,
+                    lashuntasDiscription,
+                    shirrensDiscription,
+                    veskDiscription,
+                    yoskiDiscription,
+                    customRaceDiscription
+                };
+            }
+        }
+
         //For Rich text formats where \r does't work.
         private static string cr()
         {

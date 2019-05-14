@@ -69,7 +69,7 @@ namespace SFLib
         //Race stuff goes here
         /// <summary>Holds the index value for the character's race.</summary>
         public int CharacterRaceId { set; get; } = -1; //0-7.
-        private string _raceName;
+        private string _raceName = "None Selected";
         
 
         public int RaceHPMod { set; get; }
@@ -108,7 +108,7 @@ namespace SFLib
         private int[] skills = new int[22];//stores final skill level values
         private int[] skillranks = new int[22];//stores purchased skill ranks independant from the final values.
         public string[] skillNames = {"Acrobatics", "Athletics", "Bluff", "Computer",
-            "Computers", "Culture", "Diplomacy", "Disguise", "Engineering", "Intimidate", "Life Science",
+            "Culture", "Diplomacy", "Disguise", "Engineering", "Intimidate", "Life Science",
             "Medicine", "Mysticism", "Perception", "Physical Science", "Piloting", "Profession",
             "Sense Motive", "Sleight of Hand", "Stealth", "Survival", "" };
         private int class1SkillsperLevel;
@@ -132,15 +132,7 @@ namespace SFLib
         {
             get
             {
-                //check to see if user has selected a race yet
-                if (CharacterRaceId == -1)
-                {
-                    return "None Selceted";
-                }
-                else
-                {
-                    return _raceName;
-                }
+                return _raceName;
             }
             set
             {
