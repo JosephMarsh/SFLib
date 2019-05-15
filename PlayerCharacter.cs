@@ -65,14 +65,6 @@ namespace SFLib
         public readonly int[] nextLevelXP = { 0, 1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000, 145000, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000, 0 };
         /// <summary>Read only. Unadjusted feats per level reguardless of classes[0-20] use unadjusted character level</summary>
         public readonly int[] featsPerLevel = { 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10 };
-
-        //Race stuff goes here
-        /// <summary>Holds the index value for the character's race.</summary>
-        public int CharacterRaceId { set; get; } = -1; //0-7.
-        private string _raceName = "None Selected";
-        
-
-        public int RaceHPMod { set; get; }
         
         //Theme stuff 
         public int[] themeAblityScoreAdjustment = { 0, 0, 0, 0, 0, 0 };
@@ -105,16 +97,16 @@ namespace SFLib
 
 
         //Skills stuff
-        private int[] skills = new int[22];//stores final skill level values
-        private int[] skillranks = new int[22];//stores purchased skill ranks independant from the final values.
+        private int[] skills = new int[21];//stores final skill level values
+        private int[] skillranks = new int[21];//stores purchased skill ranks independant from the final values.
         public string[] skillNames = {"Acrobatics", "Athletics", "Bluff", "Computer",
             "Culture", "Diplomacy", "Disguise", "Engineering", "Intimidate", "Life Science",
             "Medicine", "Mysticism", "Perception", "Physical Science", "Piloting", "Profession",
             "Sense Motive", "Sleight of Hand", "Stealth", "Survival", "" };
         private int class1SkillsperLevel;
         private int class2SkillsperLevel;
-        //  1     2       3     4     5       6     7       8      9      10      11     12     13    14      15    16     17     18      19     20
-        private bool[] isClassSkill = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+
+        private bool[] isClassSkill = new bool[20];
         public int[] abilityUsedForSkill = { 2, 4, 0, 3, 3, 0, 0, 3, 0, 3, 3, 5, 5, 3, 2, -1, -1, 5, 2, 2, 5, -1 };//number is associated with its location in player attribute array
         public int[] unnamedSkillBounus = new int[22];
         public bool[] isTrainedOnlySkill = { false, false, false, true, true, false, false, true, false, true, true,
@@ -126,19 +118,6 @@ namespace SFLib
         public List<string> FeatList = new List<string>();
         public int UnspentFeats { get; set; }
         public int UnspentComatFeats { get; set; }
-
-        /// <summary>Stores Players Selected Race name.</summary>
-        public string RaceName
-        {
-            get
-            {
-                return _raceName;
-            }
-            set
-            {
-                _raceName = value;
-            }
-        }
 
         /// <summary>Returns pre-calculated array of spells per level based on Wisdom Score</summary>
         public int[] MysticBonusSpells
@@ -460,6 +439,21 @@ namespace SFLib
                 return _baseAbilityScores;
             }
         }
+
+        /// <summary>Base scores without Theme mods or race mods</summary>
+        public int[] AbilityScoresWithTheme
+        {
+            get
+            {
+                int[] _abilityscores = new int[6];
+                for (int i = 0; i < abilityScoresFinal.Length; i++)
+                {
+                    _abilityscores[i] = _baseAbilityScores[i] + themeAblityScoreAdjustment[i];
+                }
+                return _abilityscores;
+            }
+        }
+        
         //For Rich text formats where \r does't work.
         private static string cr()
         {
