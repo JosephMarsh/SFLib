@@ -9,7 +9,7 @@ namespace SFLib
     /// <summary>
     /// This class stores data about Starfinder Themes.
     /// </summary>
-    public class Theme
+    public class Themes
     {
         private string[][] _benifits = new string[10][];
         private string[] _sources;
@@ -87,7 +87,7 @@ namespace SFLib
             return _sources;
         }
 
-        public Theme()
+        public Themes()
         {
         }
     }

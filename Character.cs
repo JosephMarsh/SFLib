@@ -10,7 +10,7 @@ namespace SFLib
     /// This class stores charactor data for
     /// This is where finalized data should be stored.
     /// </summary>
-    public class PlayerCharacter : Races
+    public class Character : Races
     {
 
         //unique data
@@ -22,25 +22,9 @@ namespace SFLib
         public string Concept { set; get; } = "Who Is this person?";
         /// <summary>Player's Notes entered on Step 1</summary>
         public string Step1Notes { set; get; } = "Use this area to save notes about your Character";
-        /// <summary>Player's Notes entered on Step 2/summary>
+        /// <summary>Player's Notes entered on Step 2</summary>
         public string Step2Notes { set; get; } = "";
-        /// <summary>Player's longform notes and ideas(will dispaly on seperate page of final sheet)</summary>
-        public string NotesAndIdeas {
-            get
-            {
-                string _step1Notes;
-                if (Step1Notes == "Use this area to save notes about your Character")
-                {
-                    _step1Notes = "";
-                }
-                else
-                {
-                    _step1Notes = Step1Notes;
-                }
-                string notes ="Step 1 Notes:" + cr() + _step1Notes + cr() + "Step 2 Notes:" + cr() + Step2Notes;
-                return notes;
-            }
-        }
+        
         private int playerLevel;//Property (Level) returns sum of classes 1 and 2
         private int playerBAB;
         private bool heavyArmor = false;//default is false
@@ -78,8 +62,8 @@ namespace SFLib
         public readonly string[] ClassNames = { "Envoy", "Mechanic", "Mystic", "Operative", "Solarian", "Soldier", "Technomancer" };
         public int ClassID1 { set; get; }
         public int ClassID2 { set; get; }//incase of multiclassing.
-        public int Class1Level { set; get; }
-        public int Class2Level { set; get; }//incase of multiclassing.
+        public int Class1Level { set; get; } = -1;
+        public int Class2Level { set; get; } = -1;
         public int Class1ConMod { set; get; }
         public int Class2ConMod { set; get; }
         public int Class1HPMod { set; get; }
@@ -118,6 +102,25 @@ namespace SFLib
         public List<string> FeatList = new List<string>();
         public int UnspentFeats { get; set; }
         public int UnspentComatFeats { get; set; }
+
+        /// <summary>Player's longform notes and ideas(will dispaly on seperate page of final sheet)</summary>
+        public string NotesAndIdeas
+        {
+            get
+            {
+                string _step1Notes;
+                if (Step1Notes == "Use this area to save notes about your Character")
+                {
+                    _step1Notes = "";
+                }
+                else
+                {
+                    _step1Notes = Step1Notes;
+                }
+                string notes = "Step 1 Notes:" + cr() + _step1Notes + cr() + "Step 2 Notes:" + cr() + Step2Notes;
+                return notes;
+            }
+        }
 
         /// <summary>Returns pre-calculated array of spells per level based on Wisdom Score</summary>
         public int[] MysticBonusSpells
@@ -288,7 +291,10 @@ namespace SFLib
             }
         }
 
-
+        /// <summary>
+        /// Should only set this if class skill is derived from user's class
+        /// retuns an arry of bool
+        /// </summary>
         public bool[] IsClassSkill
         {
             set
