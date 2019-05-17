@@ -54,7 +54,7 @@ namespace SFLib
         public int[] themeAblityScoreAdjustment = { 0, 0, 0, 0, 0, 0 };
         public bool[] isThemeClassSkill = new bool[22];//stored sepeatly from Class class skills for latter comparison.
         /// <summary>This stores the Character's ThemeId wich is used in the Theme class</summary>
-        public int PlayerThemeId { set; get; }
+        public int PlayerThemeId { set; get; } = -1;
         public string[] themeBenifits = new string[4];//strores an array of beifits based on the level of the character. 
 
         //class stuff
@@ -131,6 +131,8 @@ namespace SFLib
                 return mysticBonusSpells;
             }
         }
+
+        /// <summary>read only Technomancer Bonus Spells calculation using</summary>
         public int[] TechnoBonusSpells
         {
             get
@@ -139,7 +141,6 @@ namespace SFLib
                 return technoBonusSpells;
             }
         }
-
 
         private int[] calcualteBonusSpells(int score)//use to calculate bonus spells per level
         {
@@ -446,7 +447,7 @@ namespace SFLib
             }
         }
 
-        /// <summary>Base scores without Theme mods or race mods</summary>
+        /// <summary>Base scores without racial mods or race mods</summary>
         public int[] AbilityScoresWithTheme
         {
             get
@@ -459,7 +460,21 @@ namespace SFLib
                 return _abilityscores;
             }
         }
-        
+
+        /// <summary>Base scores without Theme mods or race mods</summary>
+        public int[] AbilityScoresWithRacialMods
+        {
+            get
+            {
+                int[] _abilityscores = new int[6];
+                for (int i = 0; i < abilityScoresFinal.Length; i++)
+                {
+                    _abilityscores[i] = _baseAbilityScores[i] + RacialAbilityScoreAdjustment[i];
+                }
+                return _abilityscores;
+            }
+        }
+
         //For Rich text formats where \r does't work.
         private static string cr()
         {
