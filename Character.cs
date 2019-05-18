@@ -32,8 +32,8 @@ namespace SFLib
         public string Deity { set; get; } = "The number 42";
 
         //Weapon stuff 
-        private bool[] weaponProficiency = new bool[7];//basic melee[0], advanced melee[1], small arms[2], long arms[3], sniper[4], heavy[5], granades[6]
-        private string[] proficiencies = { "Basic Melee Weapons", "Advanced Melee Weapons", "Small Arms", "Longarms", "Sniper Weapons", "heavy Weapons", "granades" };
+        private bool[] _isWeaponProficiency = new bool[7];//basic melee[0], advanced melee[1], small arms[2], long arms[3], sniper[4], heavy[5], granades[6]
+        private string[] _proficiencyNames = { "Basic Melee Weapons", "Advanced Melee Weapons", "Small Arms", "Longarms", "Sniper Weapons", "heavy Weapons", "granades" };
 
         //ability score stuff
         private int[] _baseAbilityScores = { 10, 10, 10, 10, 10, 10 }; //parrallel with AttributeNames, ability Mods and AbilityBrief Base stats at toon creation.
@@ -48,20 +48,31 @@ namespace SFLib
         /// <summary>Read only. Experience amounts needed for next level[0-20] use unadjusted current character level Parallel with curentXP</summary>
         public readonly int[] nextLevelXP = { 0, 1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000, 145000, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000, 0 };
         /// <summary>Read only. Unadjusted feats per level reguardless of classes[0-20] use unadjusted character level</summary>
-        public readonly int[] featsPerLevel = { 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10 };
+        public int[] featsPerLevel { get; } = { 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10 };
         
-        //Theme stuff 
-        public int[] themeAblityScoreAdjustment = { 0, 0, 0, 0, 0, 0 };
-        public bool[] isThemeClassSkill = new bool[22];//stored sepeatly from Class class skills for latter comparison.
+        /// <summary>Stores an array of agilityscores adjusted by character's selected Theme</summary>
+        public int[] ThemeAblityScoreAdjustment { get; set; } = { 0, 0, 0, 0, 0, 0 };
+
+        /// <summary>Stores an array of bool parrallel with skill names. 
+        /// stored sepeatly from class skills for latter comparison.</summary>
+        public bool[] IsThemeClassSkill = new bool[21];
         /// <summary>This stores the Character's ThemeId wich is used in the Theme class</summary>
         public int PlayerThemeId { set; get; } = -1;
-        public string[] themeBenifits = new string[4];//strores an array of beifits based on the level of the character. 
+        /// <summary>strores an array of beifits based on the level of the character.</summary>
+        public string[] themeBenifits = new string[4];
+        /// <summary>strores an index corrisponing to the ability score buffed by the chosen theme</summary>
+        public int ThemeAbilityScoreIndex { get; set; } = -1;
 
         //class stuff
-        public bool MultiClass { set; get; }
-        public readonly string[] ClassNames = { "Envoy", "Mechanic", "Mystic", "Operative", "Solarian", "Soldier", "Technomancer" };
-        public int ClassID1 { set; get; }
-        public int ClassID2 { set; get; }//incase of multiclassing.
+        /// <summary>Does this chracter have more than one class?</summary>
+        public bool IsMultiClass { set; get; } = false;
+        /// <summary>Stores a readonly array of Character class names</summary>
+        public string[] ClassNames { get; } = { "Envoy", "Mechanic", "Mystic", "Operative", "Solarian", "Soldier", "Technomancer" };
+        /// <summary>Stores the index of the character's chosen Class, prarallel with class names</summary>
+        public int ClassID1 { set; get; } = -1;
+        /// <summary>Stores the index of the character's second Class, prarallel with class names</summary>
+        public int ClassID2 { set; get; } = -1;
+
         public int Class1Level { set; get; } = -1;
         public int Class2Level { set; get; } = -1;
         public int Class1ConMod { set; get; }
@@ -70,8 +81,8 @@ namespace SFLib
         public int Class2HPMod { set; get; }
         public int BAB1 { set; get; }
         public int BAB2 { set; get; }
-        private string[] class1Features = new string[21];
-        private string[] class2Features = new string[21];//incase of multiclassing.
+        private string[] _class1Features = new string[21];
+        private string[] _class2Features = new string[21];//incase of multiclassing.
         public int[] MysticSpellsPerDay; //first is ignored [classlevel][number of spells per day per level]
         public int[] TechnoSpellsPerDay { get; set; } //first is ignored [number of spells per day per level]
         public int[] MysticSpellsknown { get; set; } //first is ignored [number of spells per day per level]
@@ -90,9 +101,10 @@ namespace SFLib
         private int class1SkillsperLevel;
         private int class2SkillsperLevel;
 
-        private bool[] isClassSkill = new bool[20];
-        public int[] abilityUsedForSkill = { 2, 4, 0, 3, 3, 0, 0, 3, 0, 3, 3, 5, 5, 3, 2, -1, -1, 5, 2, 2, 5, -1 };//number is associated with its location in player attribute array
-        public int[] unnamedSkillBounus = new int[22];
+        private bool[] _isClassSkill = new bool[20];
+        /// <summary>An array of ability score indexes used to indicate which ability score bonus is used for which sill</summary>
+        public int[] AbilityUsedForSkill { get; } = { 2, 4, 0, 3, 3, 0, 0, 3, 0, 3, 3, 5, 5, 3, 2, -1, 5, 2, 2, 5, -1 };//number is associated with its location in player attribute array
+        public int[] unnamedSkillBounus = new int[21];
         public bool[] isTrainedOnlySkill = { false, false, false, true, true, false, false, true, false, true, true,
             true, false, true, false, true, true, false, true, false, false, false };
 
@@ -103,7 +115,7 @@ namespace SFLib
         public int UnspentFeats { get; set; }
         public int UnspentComatFeats { get; set; }
 
-        /// <summary>Player's longform notes and ideas(will dispaly on seperate page of final sheet)</summary>
+        /// <summary>Player's longform notes and ideas</summary>
         public string NotesAndIdeas
         {
             get
@@ -127,81 +139,83 @@ namespace SFLib
         {
             get
             {
-                mysticBonusSpells = calcualteBonusSpells(_baseAbilityScores[5]);
+                mysticBonusSpells = calcualteBonusSpells(AbilityScores[5]);
                 return mysticBonusSpells;
             }
         }
 
-        /// <summary>read only Technomancer Bonus Spells calculation using</summary>
+        /// <summary>read only Technomancer Bonus Spells calculation using Intelegence score</summary>
         public int[] TechnoBonusSpells
         {
             get
             {
-                technoBonusSpells = calcualteBonusSpells(_baseAbilityScores[3]);
+                technoBonusSpells = calcualteBonusSpells(AbilityScores[3]);
                 return technoBonusSpells;
             }
         }
 
-        private int[] calcualteBonusSpells(int score)//use to calculate bonus spells per level
+        //use to calculate bonus spells per level starts at spell level 0
+        private int[] calcualteBonusSpells(int score)
         {
-            int[] a = { -1, -1, -1, -1, -1, -1 };
+            int[] bonusSpellsPerSlot = { -1, -1, -1, -1, -1, -1 };
             if (score < 12)
             {
-                a = new int[] { 0, 0, 0, 0, 0, 0 };
+                bonusSpellsPerSlot = new int[] { 0, 0, 0, 0, 0, 0 };
             }
             else if (score < 14)
             {
-                a = new int[] { 1, 0, 0, 0, 0, 0 };
+                bonusSpellsPerSlot = new int[] { 1, 0, 0, 0, 0, 0 };
             }
             else if (score < 16)
             {
-                a = new int[] { 1, 1, 0, 0, 0, 0 };
+                bonusSpellsPerSlot = new int[] { 1, 1, 0, 0, 0, 0 };
             }
             else if (score < 18)
             {
-                a = new int[] { 1, 1, 1, 0, 0, 0 };
+                bonusSpellsPerSlot = new int[] { 1, 1, 1, 0, 0, 0 };
             }
             else if (score < 20)
             {
-                a = new int[] { 1, 1, 1, 1, 0, 0 };
+                bonusSpellsPerSlot = new int[] { 1, 1, 1, 1, 0, 0 };
             }
             else if (score < 22)
             {
-                a = new int[] { 2, 1, 1, 1, 1, 0 };
+                bonusSpellsPerSlot = new int[] { 2, 1, 1, 1, 1, 0 };
             }
             else if (score < 24)
             {
-                a = new int[] { 2, 2, 1, 1, 1, 1 };
+                bonusSpellsPerSlot = new int[] { 2, 2, 1, 1, 1, 1 };
             }
             else if (score < 26)
             {
-                a = new int[] { 2, 2, 2, 1, 1, 1 };
+                bonusSpellsPerSlot = new int[] { 2, 2, 2, 1, 1, 1 };
             }
             else if (score < 28)
             {
-                a = new int[] { 2, 2, 2, 2, 1, 1 };
+                bonusSpellsPerSlot = new int[] { 2, 2, 2, 2, 1, 1 };
             }
             else if (score < 30)
             {
-                a = new int[] { 3, 2, 2, 2, 2, 1 };
+                bonusSpellsPerSlot = new int[] { 3, 2, 2, 2, 2, 1 };
             }
             else if (score < 32)
             {
-                a = new int[] { 3, 3, 2, 2, 2, 2 };
+                bonusSpellsPerSlot = new int[] { 3, 3, 2, 2, 2, 2 };
             }//end if
 
-            return a;
+            return bonusSpellsPerSlot;
         } // end Calcualte bonus Spells
 
-
+        /// <summary>Stores abool that dertermins if the character can wear heavy armor</summary>
         public bool HeavyArmor
         {
             get
             {
                 return heavyArmor;
             }
-            set// if one class gives access to heavy the others can't deny access
+            set
             {
+                // keep other classes from denying
                 if (heavyArmor == true)
                 {
                     heavyArmor = true;
@@ -213,11 +227,12 @@ namespace SFLib
             }
         }
 
+        /// <summary>stores an array of bool parrallel wity Proficeincy names</summary>
         public bool[] profiencies
         {
             get
             {
-                return weaponProficiency;
+                return _isWeaponProficiency;
             }
             set
             {
@@ -226,7 +241,7 @@ namespace SFLib
                 {
                     if (a[i] == true)
                     {
-                        weaponProficiency[i] = true;
+                        _isWeaponProficiency[i] = true;
                     }
                 }
             }//end set
@@ -236,7 +251,7 @@ namespace SFLib
         {
             get
             {
-                return class1Features;
+                return _class1Features;
             }
         }
 
@@ -244,7 +259,7 @@ namespace SFLib
         {
             set
             {
-                class1Features = value;
+                _class1Features = value;
             }
         }
 
@@ -252,7 +267,7 @@ namespace SFLib
         {
             get
             {
-                return class2Features;
+                return _class2Features;
             }
         }
 
@@ -260,7 +275,7 @@ namespace SFLib
         {
             set
             {
-                class2Features = value;
+                _class2Features = value;
             }
         }
 
@@ -301,16 +316,16 @@ namespace SFLib
             set
             {
                 //Check each value to see if it's true
-                for (int i = 0; i < isClassSkill.Length; i++)
+                for (int i = 0; i < _isClassSkill.Length; i++)
                 {
                     //if the current value is false set it to the new value
-                    if (!isClassSkill[i])
+                    if (!_isClassSkill[i])
                     {
-                        isClassSkill[i] = value[i];
+                        _isClassSkill[i] = value[i];
                     }
-                    for (int j = 0; j < isThemeClassSkill.Length; j++)//if the class skill is also granted by theme player gets a plus 1
+                    for (int j = 0; j < IsThemeClassSkill.Length; j++)//if the class skill is also granted by theme player gets a plus 1
                     {
-                        if (isThemeClassSkill[j] && isClassSkill[j])
+                        if (IsThemeClassSkill[j] && _isClassSkill[j])
                         {
                             unnamedSkillBounus[j] = 1;
                         }
@@ -319,7 +334,7 @@ namespace SFLib
             }//end set
             get
             {
-                return isClassSkill;
+                return _isClassSkill;
             }
         }//end IsClassSkill
 
@@ -336,7 +351,7 @@ namespace SFLib
         {
             get
             {
-                if (MultiClass)
+                if (IsMultiClass)
                 {
                     playerBAB = BAB1 + BAB2;
                 }
@@ -355,7 +370,7 @@ namespace SFLib
             {
                 for (int i = 0; i < abilityScoresFinal.Length; i++)
                 {
-                    abilityScoresFinal[i]= _baseAbilityScores[i] + (themeAblityScoreAdjustment[i] + RacialAbilityScoreAdjustment[i]);
+                    abilityScoresFinal[i]= _baseAbilityScores[i] + (ThemeAblityScoreAdjustment[i] + RacialAbilityScoreAdjustment[i]);
                 }
                 return abilityScoresFinal;
             }
@@ -455,7 +470,7 @@ namespace SFLib
                 int[] _abilityscores = new int[6];
                 for (int i = 0; i < abilityScoresFinal.Length; i++)
                 {
-                    _abilityscores[i] = _baseAbilityScores[i] + themeAblityScoreAdjustment[i];
+                    _abilityscores[i] = _baseAbilityScores[i] + ThemeAblityScoreAdjustment[i];
                 }
                 return _abilityscores;
             }
