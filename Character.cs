@@ -399,6 +399,8 @@ namespace SFLib
             }
         }
 
+        /// <summary>Returns an array bool where each vallue corrisponds 
+        /// to a skill and weather it can be used untrained</summary>
         public bool[] Is_TrainedOnlySkill
         {
             set
@@ -411,17 +413,16 @@ namespace SFLib
             }
         }
 
+        /// <summary>returns an array of integers corresponding to 
+        /// the index of the ability score a skill uses.</summary>
         public int[] AbilityModForSkill
         {
             get
             {
-                return abilityUsedForSkill;
-            }
-            set
-            {
-                abilityUsedForSkill = value;
+                return AbilityUsedForSkill;
             }
         }
+
 
         public int[] Skills
         {
