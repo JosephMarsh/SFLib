@@ -53,6 +53,7 @@ namespace SFLib
         /// <summary>Stores an array of agilityscores adjusted by character's selected Theme</summary>
         public int[] ThemeAblityScoreAdjustment { get; set; } = { 0, 0, 0, 0, 0, 0 };
 
+        //Theme stuff
         /// <summary>Stores an array of bool parrallel with skill names. 
         /// stored sepeatly from class skills for latter comparison.</summary>
         public bool[] IsThemeClassSkill = new bool[21];
@@ -62,6 +63,7 @@ namespace SFLib
         public string[] themeBenifits = new string[4];
         /// <summary>strores an index corrisponing to the ability score buffed by the chosen theme</summary>
         public int ThemeAbilityScoreIndex { get; set; } = -1;
+        public string ThemeName { get; set; } = "Themeless";
 
         //class stuff
         /// <summary>Does this chracter have more than one class?</summary>
