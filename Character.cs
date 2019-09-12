@@ -32,7 +32,7 @@ namespace SFLib
         public string Deity { set; get; } = "The number 42";
 
         //Weapon stuff 
-        private bool[] _isWeaponProficiency = new bool[7];//basic melee[0], advanced melee[1], small arms[2], long arms[3], sniper[4], heavy[5], granades[6]
+        private bool[] _areWeaponProficiencies = new bool[7];//basic melee[0], advanced melee[1], small arms[2], long arms[3], sniper[4], heavy[5], granades[6]
         private string[] _proficiencyNames = { "Basic Melee Weapons", "Advanced Melee Weapons", "Small Arms", "Longarms", "Sniper Weapons", "heavy Weapons", "granades" };
 
         //ability score stuff
@@ -70,13 +70,15 @@ namespace SFLib
         public bool IsMultiClass { set; get; } = false;
         /// <summary>Stores a readonly array of Character class names</summary>
         public string[] ClassNames { get; } = { "Envoy", "Mechanic", "Mystic", "Operative", "Solarian", "Soldier", "Technomancer" };
-        /// <summary>Stores the index of the character's chosen Class, prarallel with class names</summary>
+        /// <summary>Stores the index of the character's chosen Class, prarallel with class names, Default -1</summary>
         public int ClassID1 { set; get; } = -1;
-        /// <summary>Stores the index of the character's second Class, prarallel with class names</summary>
+        /// <summary>Stores the index of the character's second Class, prarallel with class names, Default -1</summary>
         public int ClassID2 { set; get; } = -1;
 
-        public int Class1Level { set; get; } = -1;
-        public int Class2Level { set; get; } = -1;
+        /// <summary>Stores Primary class level Default 1</summary>
+        public int Class1Level { set; get; } = 1;
+        /// <summary>Stores Secondary class level Default 0</summary>
+        public int Class2Level { set; get; } = 0;
         public int Class1ConMod { set; get; }
         public int Class2ConMod { set; get; }
         public int Class1HPMod { set; get; }
@@ -234,20 +236,13 @@ namespace SFLib
         {
             get
             {
-                return _isWeaponProficiency;
+                return _areWeaponProficiencies;
             }
             set
             {
-                bool[] a = value;
-                for (int i = 0; i < a.Length; i++)
-                {
-                    if (a[i] == true)
-                    {
-                        _isWeaponProficiency[i] = true;
-                    }
-                }
-            }//end set
-        }// end profiencies
+                _areWeaponProficiencies = value;
+            }
+        }
 
         public string[] GetClass1Features
         {

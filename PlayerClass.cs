@@ -28,12 +28,13 @@ namespace SFLib
         protected int skillsPerLevel { set; get; }
         /// <summary>Modifies how fast the player can move</summary>
         protected int landSpeedMod { get; set; }
-
+        /// <summary>Stores true if caracter is proficient in weapon runs parrallel with Character.Proficiencies</summary>
         protected bool[] weaponProficiency = new bool[7];//default is false 
-
-
+        /// <summary>Stors the class ID</summary>
         protected int ClassID { get; set; }
-        public readonly string[] classNames = { "Envoy", "Mechanic", "Mystic", "Operative", "Solarian", "Soldier", "Technomancer", };
+        /// <summary>Array of all class names</summary>
+        public readonly string[] classNames = { "Envoy", "Mechanic", "Mystic", "Operative", "Solarian", "Soldier", "Technomancer"};
+        /// <summary>Array of all skill names</summary>
         public readonly string[] skillNames = {"Acrobatics", "Athletics", "Bluff", "Computer",
             "Computers", "Culture", "Diplomacy", "Disguise", "Engineering", "Intimidate", "Life Science",
             "Medicine", "Mysticism", "Perception", "Physical Science", "Piloting", "Profession",
