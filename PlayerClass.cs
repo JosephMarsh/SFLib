@@ -84,8 +84,8 @@ namespace SFLib
         private readonly string[] aName = { "Charsima", "Constitution", "Dexterity", "Intelligence", "Strength", "Wisdom" };
 
 
-
-        public string[] KeyAttributes
+        /// <summary>Read only array of Key Ability Scores, prallel with Class names</summary>
+        public string[] KeyAbilityScores
         {
             get
             {
@@ -100,7 +100,8 @@ namespace SFLib
             }
         }//end KeyAttributes
 
-        public string[] SecoundaryAttributes
+        /// <summary>Read only array of Secondary Ability Scores, prallel with Class names</summary>
+        public string[] SecoundaryAbilityScores
         {
             get
             {
